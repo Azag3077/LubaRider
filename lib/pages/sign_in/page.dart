@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../components/phone_number_field_prefix_button.dart';
 import '../../components/textfields.dart';
 import '../../core/constants/assets.dart';
 import '../../core/constants/colors.dart';
 import '../../core/validators.dart';
-import '../sign_up/components/phone_number_field_prefix_button.dart';
 import 'provider.dart';
 
 class SignInPage extends ConsumerWidget {

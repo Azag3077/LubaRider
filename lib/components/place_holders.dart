@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -59,9 +60,14 @@ class ImageLoader extends StatelessWidget {
   Clip get _clipBehavior =>
       clipBehavior == Clip.none && radius > 0 ? Clip.hardEdge : clipBehavior;
 
-  String get _image => image.isEmpty
-      ? 'https://dummyimage.com/400/f5f5f5/424242&text=Dummy+Image'
-      : image;
+  String get _image {
+    if (image.isNotEmpty) return image;
+
+    final random = Random();
+    final id = random.nextInt(71);
+
+    return 'https://i.pravatar.cc/150?img=$id';
+  }
 
   Decoration get _decoration =>
       decoration ??
@@ -203,7 +209,12 @@ class DataLoader extends StatelessWidget {
 }
 
 class CustomLoadingWidget extends StatelessWidget {
-  const CustomLoadingWidget({super.key});
+  const CustomLoadingWidget({
+    super.key,
+    this.showBottom = true,
+  });
+
+  final bool showBottom;
 
   @override
   Widget build(BuildContext context) {
@@ -252,11 +263,12 @@ class CustomLoadingWidget extends StatelessWidget {
             },
           ),
         ),
-        const DataLoader(
-          width: double.infinity,
-          height: 50.0,
-          margin: EdgeInsets.symmetric(vertical: 15.0),
-        )
+        if (showBottom)
+          const DataLoader(
+            width: double.infinity,
+            height: 50.0,
+            margin: EdgeInsets.symmetric(vertical: 15.0),
+          )
       ],
     );
   }

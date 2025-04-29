@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'components/page_indicator.dart';
-import 'page_views/personal_details.dart';
+import 'page_views/bank_details/view.dart';
+import 'page_views/personal_details/view.dart';
+import 'page_views/terms_and_condition/view.dart';
+import 'page_views/verification_details/view.dart';
+import 'page_views/verify_identity/view.dart';
 import 'provider.dart';
 
 class SignUpPage extends ConsumerStatefulWidget {
@@ -16,7 +20,29 @@ class SignUpPage extends ConsumerStatefulWidget {
 
 class _SignUpPageState extends ConsumerState<SignUpPage> {
   final _pageController = PageController();
-  final _page1FormKey = GlobalKey<FormState>();
+  final _personalDetailsFormKey = GlobalKey<FormState>();
+  final _verificationDetailsFormKey = GlobalKey<FormState>();
+  final _vehicleBrandFieldKey = GlobalKey<FormFieldState<String>>();
+
+  final _bankDetailsFormKey = GlobalKey<FormState>();
+  final _verifyIdentityFormKey = GlobalKey<FormState>();
+  final _termsAndConditionsAgreementFormKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final notifier = ref.read(signUpPageProvider.notifier);
+      notifier.initialize(
+        pageController: _pageController,
+        personalDetailsFormKey: _personalDetailsFormKey,
+        verificationDetailsFormKey: _verificationDetailsFormKey,
+        bankDetailsFormKey: _bankDetailsFormKey,
+        verifyIdentityFormKey: _verifyIdentityFormKey,
+        termsAndConditionsAgreementFormKey: _termsAndConditionsAgreementFormKey,
+      );
+    });
+  }
 
   @override
   void dispose() {
@@ -26,39 +52,62 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
+    final pageIndex = ref.watch(signUpPageProvider);
     final notifier = ref.read(signUpPageProvider.notifier);
 
-    return Scaffold(
-      appBar: AppBar(
-        titleSpacing: 0,
-        title: const Padding(
-          padding: EdgeInsets.only(right: 8.0),
-          child: PageIndicator(
-            currentIndex: 0,
-            length: 4,
+    return PopScope(
+      canPop: pageIndex == 0,
+      onPopInvokedWithResult: notifier.onPopInvokedWithResult,
+      child: Scaffold(
+        appBar: AppBar(
+          titleSpacing: 0,
+          title: Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: PageIndicator(
+              length: 5,
+              currentIndex: pageIndex,
+            ),
           ),
         ),
-      ),
-      body: Column(
-        spacing: 16.0,
-        children: <Widget>[
-          Expanded(
-            child: PageView(
-              children: <Widget>[
-                PersonalDetailsPageView(
-                  formKey: _page1FormKey,
+        body: Column(
+          spacing: 8.0,
+          children: <Widget>[
+            Expanded(
+              child: PageView(
+                controller: _pageController,
+                onPageChanged: notifier.updatePageIndex,
+                physics: const NeverScrollableScrollPhysics(),
+                children: <Widget>[
+                  PersonalDetailsPageView(
+                    formKey: _personalDetailsFormKey,
+                  ),
+                  VerificationDetailsPageView(
+                    formKey: _verificationDetailsFormKey,
+                    vehicleBrandFieldKey: _vehicleBrandFieldKey,
+                  ),
+                  BankDetailsPageView(
+                    formKey: _bankDetailsFormKey,
+                  ),
+                  VerifyIdentityPageView(
+                    formKey: _verifyIdentityFormKey,
+                  ),
+                  TermsAndConditionPageView(
+                    formKey: _termsAndConditionsAgreementFormKey,
+                  ),
+                ],
+              ),
+            ),
+            if (pageIndex != 3)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: FilledButton(
+                  onPressed: () => notifier.onContinue(context),
+                  child: const Center(child: Text('Continue')),
                 ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: FilledButton(
-              onPressed: () => notifier.onSignUp(context, _page1FormKey),
-              child: const Center(child: Text('Sign up')),
-            ),
-          ),
-        ],
+              ),
+            const SizedBox(height: 16.0),
+          ],
+        ),
       ),
     );
   }

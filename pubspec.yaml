@@ -50,7 +50,7 @@ flutter:
     - assets/images/
 #    - assets/images/home/
 #    - assets/images/home/restaurant/
-#    - assets/images/bottom_nav_bar/
+    - assets/images/bottom_nav_bar/
 
   fonts:
     - family: Montserrat

@@ -66,11 +66,6 @@ class GetStartedPage extends ConsumerWidget {
               onPressed: () => notifier.onSignUpAsANewRider(context),
             ),
             _buildFilledButton(
-              text: 'Sign up as 3PL partner',
-              bgColor: AppColors.text,
-              onPressed: () => notifier.onSignUpAsPartner(context),
-            ),
-            _buildFilledButton(
               text: 'Log in as existing Rider',
               bgColor: Colors.white,
               fgColor: AppColors.primary,

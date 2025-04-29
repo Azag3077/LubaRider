@@ -37,15 +37,18 @@ class LubaDriver extends StatelessWidget {
             fontSize: 19.0,
           ),
         ),
+        tabBarTheme: const TabBarThemeData(
+          labelStyle: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.w600,
+          ),
+          unselectedLabelStyle: TextStyle(
+            fontWeight: FontWeight.w600,
+            color: AppColors.hintColor,
+            fontSize: 14.0,
+          ),
+        ),
         textTheme: const TextTheme(
-          // titleLarge: TextStyle(
-          //   fontSize: 22,
-          //   height: 32 / 22,
-          //   color: AppColors.text,
-          //   fontWeight: FontWeight.bold,
-          // ),
-          // bodyMedium: TextStyle(color: AppColors.text),
-          // bodyLarge: TextStyle(color: AppColors.text),
           labelMedium: TextStyle(
             height: 1.4,
             fontSize: 13.0,
@@ -82,25 +85,22 @@ class LubaDriver extends StatelessWidget {
             ),
           ),
         ),
-        // outlinedButtonTheme: OutlinedButtonThemeData(
-        //   style: OutlinedButton.styleFrom(
-        //     foregroundColor: AppColors.primary,
-        //     textStyle: TextStyle(
-        //       fontSize: 16.0.sp,
-        //       height: 32 / 22,
-        //       fontFamily: 'Poppins',
-        //       fontWeight: FontWeight.w800,
-        //     ),
-        //     padding: EdgeInsets.symmetric(
-        //       horizontal: 18.0.w,
-        //       vertical: 14.0.h,
-        //     ),
-        //     shape: RoundedRectangleBorder(
-        //       borderRadius: BorderRadius.circular(kButtonRadius),
-        //     ),
-        //     side: const BorderSide(color: AppColors.primary),
-        //   ),
-        // ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            textStyle: const TextStyle(
+              height: 1.4,
+              fontSize: 14.0,
+              fontWeight: FontWeight.w600,
+            ),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16.0,
+              vertical: 12.0,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(kButtonRadius),
+            ),
+          ),
+        ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
             textStyle: const TextStyle(

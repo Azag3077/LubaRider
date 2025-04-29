@@ -1,7 +1,7 @@
 import 'package:country_state_city/models/country.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/colors.dart';
+import '../core/constants/colors.dart';
 
 class PhoneNumberFieldPrefixButton extends StatelessWidget {
   const PhoneNumberFieldPrefixButton({
@@ -54,28 +54,30 @@ class PhoneNumberFieldPrefixButton extends StatelessWidget {
                   );
                 }),
               ] else ...[
+                const SizedBox(width: 2.0),
                 Text(
                   country!.flag,
-                  style: const TextStyle(
-                    fontSize: 18.0,
-                  ),
+                  style: const TextStyle(fontSize: 18.0),
                 ),
                 const SizedBox(width: 4.0),
                 Text(
                   phoneCode!,
                   style: const TextStyle(
+                    fontSize: 13.0,
+                    color: AppColors.secText,
                     fontWeight: FontWeight.w500,
-                    color: AppColors.text,
-                    fontSize: 16.0,
                   ),
                 ),
               ],
+              const SizedBox(width: 4.0),
               const Icon(
+                size: 16.0,
                 Icons.expand_more,
-                color: AppColors.text,
+                color: AppColors.hintColor,
               ),
+              const SizedBox(width: 2.0),
               const SizedBox(
-                height: 34.0,
+                height: 18.0,
                 child: VerticalDivider(width: 0),
               ),
             ],

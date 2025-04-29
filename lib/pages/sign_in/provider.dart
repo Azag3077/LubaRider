@@ -2,14 +2,15 @@ import 'package:country_state_city/models/country.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../components/country_bottom_sheet.dart';
 import '../../components/dialogs.dart';
 import '../../components/snackbar.dart';
 import '../../core/constants/constants.dart';
 import '../../core/extensions/num_duration.dart';
 import '../../core/routers/app_routes.dart';
 import '../../network/api_services/auth.dart';
+import '../dashboard/page.dart';
 import '../get_started/provider.dart';
-import '../reset_password/components/country_bottom_sheet.dart';
 import '../verify_otp/page.dart';
 
 final signInPageProvider =
@@ -76,26 +77,32 @@ class _Notifier extends AutoDisposeNotifier<_State> {
     showLoadingDialog(context);
 
     final phone = _getPhoneNumberWithCountryCode();
-    final result = await AuthService.loginUser(phone);
+    final loginResult = await AuthService.loginUser(phone);
 
     if (!context.mounted) return;
 
     pop(context);
 
-    if (result.data!) {
-      return pushNamed(
-        context,
-        VerifyOtpPage.routeName,
-        arguments: phone,
-      ).ignore();
-    }
+    if (loginResult.data!) return _handleLoginSuccess(context, phone);
 
     showSnackbar(
       context: context,
-      title: result.error!.title,
-      subtitle: result.error!.message,
+      title: loginResult.error!.title,
+      subtitle: loginResult.error!.message,
       type: SnackbarType.error,
     );
+  }
+
+  Future<void> _handleLoginSuccess(BuildContext context, String phone) async {
+    final verifyResult = await pushNamed(
+      context,
+      VerifyOtpPage.routeName,
+      arguments: phone,
+    );
+
+    if (verifyResult != true || !context.mounted) return;
+
+    pushReplacementNamed(context, DashboardPage.routeName);
   }
 
   void onSignUp(BuildContext context) =>

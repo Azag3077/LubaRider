@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/constants/colors.dart';
 import '../../core/routers/router.dart';
 
 class SuccessfulPageArgs {
@@ -57,8 +58,8 @@ class _SuccessfulPageState extends State<SuccessfulPage> {
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 19.0,
-                    fontWeight: FontWeight.bold,
                     color: Color(0xFF1A1A1A),
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
@@ -66,8 +67,8 @@ class _SuccessfulPageState extends State<SuccessfulPage> {
                   widget.args.subtitle,
                   style: const TextStyle(
                     fontSize: 13.0,
+                    color: AppColors.secText,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xFF3D3D3D),
                   ),
                 ),
               ],

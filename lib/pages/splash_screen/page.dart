@@ -32,7 +32,14 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
         ),
       ),
       extendBodyBehindAppBar: true,
-      body: Center(child: Image.asset(ImageAssetNames.appLogisticsLogo)),
+      body: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          Image.asset(ImageAssetNames.splashBg, fit: BoxFit.cover),
+          Image.asset(ImageAssetNames.splashOverlayEllipse, fit: BoxFit.cover),
+          Center(child: Image.asset(ImageAssetNames.appLogisticsLogo)),
+        ],
+      ),
     );
   }
 }

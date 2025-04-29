@@ -4,10 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../components/spinner.dart';
-import '../../../core/constants/colors.dart';
-import '../../../core/extensions/num_duration.dart';
-import '../../../core/routers/router.dart';
+import 'spinner.dart';
+import '../core/constants/colors.dart';
+import '../core/extensions/num_duration.dart';
+import '../core/routers/router.dart';
 
 final countriesFutureProvider =
     FutureProvider<List<Country>>((_) => getAllCountries());

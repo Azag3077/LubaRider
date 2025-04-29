@@ -30,14 +30,40 @@ extension DurationExt on Duration {
 }
 
 extension NumExtension on num {
-  String toPrice([int dp = 2]) {
+  String toPriceWithCurrency({String currency = '₦', int dp = 0}) {
     final regex = RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
     final parts = toStringAsFixed(dp).split('.');
     final intPart =
         parts[0].replaceAllMapped(regex, (Match match) => '${match[1]},');
 
-    if (parts.length == 1) return intPart;
+    if (parts.length == 1) return currency + intPart;
 
-    return '$intPart.${parts[1]}';
+    return '$currency$intPart.${parts[1]}';
+  }
+
+  String formatDistance({bool includeAway = true}) {
+    String suffix = includeAway ? ' away' : '';
+
+    if (this < 1.0) {
+      final meters = (this * 1000).round();
+      return '${_format(meters)} m$suffix';
+    } else if (this < 1000) {
+      return '${_format(this)} km$suffix';
+    } else if (this < 1000000) {
+      final k = (this / 1000);
+      return '${_format(k)}k km$suffix';
+    } else {
+      final m = (this / 1000000);
+      return '${_format(m)}M km$suffix';
+    }
+  }
+
+  String _format(num value) {
+    final n = value.toStringAsFixed(1);
+    final parts = n.split('.');
+
+    if (int.parse(parts.last) > 0) return n;
+
+    return parts.first;
   }
 }

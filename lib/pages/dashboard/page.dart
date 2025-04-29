@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/constants/assets.dart';
 import '../../core/constants/colors.dart';
+import '../deliveries/page.dart';
 import '../home/page.dart';
 import 'components/nav_bar_item.dart';
 import 'provider.dart';
@@ -14,7 +15,7 @@ class DashboardPage extends ConsumerWidget {
 
   List<Widget> get _screens => const <Widget>[
         HomePage(),
-        Scaffold(),
+        DeliveriesPage(),
         Scaffold(),
         Scaffold(),
         Scaffold(),
@@ -75,19 +76,24 @@ class DashboardPage extends ConsumerWidget {
                 selected: currentPageIndex == 0,
               ),
               CustomBottomNavigationBarItem(
-                label: 'Search',
-                assetName: ImageAssetNames.search,
+                label: 'Deliveries',
+                assetName: ImageAssetNames.deliveries,
                 selected: currentPageIndex == 1,
               ),
               CustomBottomNavigationBarItem(
-                label: 'Order',
-                assetName: ImageAssetNames.note,
+                label: 'Earnings',
+                assetName: ImageAssetNames.earnings,
                 selected: currentPageIndex == 2,
               ),
               CustomBottomNavigationBarItem(
-                label: 'Account',
-                assetName: ImageAssetNames.profile,
+                label: 'Support',
+                assetName: ImageAssetNames.support,
                 selected: currentPageIndex == 3,
+              ),
+              CustomBottomNavigationBarItem(
+                label: 'Account',
+                assetName: ImageAssetNames.account,
+                selected: currentPageIndex == 4,
               ),
             ],
           ),
