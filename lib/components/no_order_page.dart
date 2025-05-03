@@ -4,8 +4,14 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../core/constants/assets.dart';
 
 class NoOrderPage extends StatelessWidget {
-  const NoOrderPage(this.text, {super.key});
+  const NoOrderPage(
+    this.text, {
+    super.key,
+    this.image = ImageAssetNames.redBike,
+  });
+
   final String text;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +19,7 @@ class NoOrderPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Image.asset(ImageAssetNames.redBike)
+          Image.asset(image)
               .animate(onPlay: (ctrl) => ctrl.repeat(reverse: true))
               .move(
                 duration: 1.5.seconds,
@@ -23,6 +29,7 @@ class NoOrderPage extends StatelessWidget {
               ),
           Text(
             text,
+            textAlign: TextAlign.center,
             style: const TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 13.0,

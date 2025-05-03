@@ -138,7 +138,10 @@ class _HomePageState extends ConsumerState<HomePage> {
       body: PageView(
         controller: _controller,
         onPageChanged: notifier.onPageChanged,
-        children: const <Widget>[PendingPageView(), OngoingPageView()],
+        children: const <Widget>[
+          PendingPageView(key: PageStorageKey('PendingPageViewKey')),
+          OngoingPageView(key: PageStorageKey('OngoingPageViewKey')),
+        ],
       ),
     );
   }

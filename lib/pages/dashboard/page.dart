@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/constants/assets.dart';
 import '../../core/constants/colors.dart';
+import '../account/page.dart';
 import '../deliveries/page.dart';
+import '../earnings/page.dart';
 import '../home/page.dart';
 import 'components/nav_bar_item.dart';
 import 'provider.dart';
@@ -16,9 +18,9 @@ class DashboardPage extends ConsumerWidget {
   List<Widget> get _screens => const <Widget>[
         HomePage(),
         DeliveriesPage(),
+        EarningsPage(),
         Scaffold(),
-        Scaffold(),
-        Scaffold(),
+        AccountPage(),
       ];
 
   @override
@@ -54,7 +56,7 @@ class DashboardPage extends ConsumerWidget {
             ],
           ),
           child: BottomNavigationBar(
-            onTap: notifier.updatePageIndex,
+            onTap: (index) => notifier.updatePageIndex(index, context),
             currentIndex: currentPageIndex,
             backgroundColor: Colors.white,
             selectedItemColor: AppColors.primary,

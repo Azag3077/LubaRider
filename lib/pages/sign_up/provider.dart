@@ -91,14 +91,6 @@ class _Notifier extends AutoDisposeNotifier<int> {
     }
   }
 
-  String? get _getPhoneNumberWithCountryCode {
-    final personalDetails = ref.read(personalDetailsPageViewProvider);
-    if (personalDetails.country!.phoneCode.startsWith('+')) {
-      return '${personalDetails.country!.phoneCode} ${personalDetails.phone}';
-    }
-    return '+${personalDetails.country!.phoneCode} ${personalDetails.phone}';
-  }
-
   Future<void> _registerUser(BuildContext context) async {
     showLoadingDialog(context);
 

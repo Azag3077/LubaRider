@@ -22,7 +22,7 @@ class TermsAndConditionPageView extends ConsumerWidget {
           const Icon(
             Icons.check,
             size: 20.0,
-            color: Color(0xFF4CC81A),
+            color: AppColors.green500,
           ),
           Expanded(
             child: Text(

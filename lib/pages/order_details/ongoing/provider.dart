@@ -5,13 +5,9 @@ import '../../../core/routers/app_routes.dart';
 import '../../../models/order.dart';
 import '../../delivery_complete/page.dart';
 
-final ongoingBottomSheetProvider = Provider((ref) => _Provider(ref));
+final ongoingBottomSheetProvider = Provider((_) => _Provider());
 
 class _Provider {
-  _Provider(this._ref);
-
-  final Ref _ref;
-
   void onCall(BuildContext context, Order order) {}
 
   void onIHaveArrived(BuildContext context, Order order) =>

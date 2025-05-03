@@ -1,5 +1,5 @@
 name: luba_rider
-description: "A logistics app-driver"
+description: "A logistics app [Rider]"
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -48,8 +48,6 @@ flutter:
 
   assets:
     - assets/images/
-#    - assets/images/home/
-#    - assets/images/home/restaurant/
     - assets/images/bottom_nav_bar/
 
   fonts:

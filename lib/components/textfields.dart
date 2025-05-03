@@ -132,8 +132,8 @@ class CustomTextField extends StatelessWidget {
                   error: showError ? const SizedBox.shrink() : null,
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(radius),
-                    borderSide: BorderSide(
-                      color: Colors.black.withValues(alpha: .05),
+                    borderSide: const BorderSide(
+                      color: AppColors.borderColor,
                       width: 1.5,
                     ),
                   ),
@@ -216,4 +216,87 @@ class CustomTextField extends StatelessWidget {
   }
 
   void _onTapOutside() => FocusManager.instance.primaryFocus?.unfocus();
+}
+
+class NumberInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    // Allow only digits and at most one period
+    // r'^\d*\.?\d*'
+    String newText = newValue.text.replaceAll(RegExp(r'[^\d.]'), '');
+
+    // Allow only one period
+    int periodCount = newText.split('.').length - 1;
+    if (periodCount > 1) {
+      newText = oldValue.text;
+    }
+
+    // Handle the case where range.start is out of bounds
+    int newSelection = newValue.selection.start;
+    if (newSelection > newText.length) {
+      newSelection = newText.length;
+    }
+
+    // Add commas as a delimiter for better readability and adjust insertion point
+    AdjustedTextResult adjustedText =
+        _addCommas(newText, oldValue.text, oldValue.selection);
+
+    return TextEditingValue(
+      text: adjustedText.text,
+      selection: TextSelection.collapsed(offset: adjustedText.newSelection),
+    );
+  }
+
+  AdjustedTextResult _addCommas(
+      String newText, String oldText, TextSelection oldSelection) {
+    List<String> newParts = newText.split('.');
+    List<String> oldParts = oldText.split('.');
+
+    String formattedIntegerPart = _formatIntegerPart(newParts[0]);
+
+    int insertedCommasCount = formattedIntegerPart.length - oldParts[0].length;
+
+    // Adjust the selection range based on the number of inserted commas
+    int baseOffset = oldSelection.baseOffset + insertedCommasCount;
+    int extentOffset = oldSelection.extentOffset + insertedCommasCount;
+
+    // Ensure the selection stays within bounds
+    baseOffset = baseOffset.clamp(0, formattedIntegerPart.length);
+    extentOffset = extentOffset.clamp(0, formattedIntegerPart.length);
+
+    // Combine the formatted parts
+    String formattedText = formattedIntegerPart;
+    if (newParts.length > 1) {
+      formattedText += '.${newParts[1]}';
+    }
+
+    return AdjustedTextResult(text: formattedText, newSelection: baseOffset);
+  }
+
+  String _formatIntegerPart(String integerPart) {
+    const int groupSize = 3;
+    const delimiter = ',';
+    String result = '';
+    int count = 0;
+
+    for (int i = integerPart.length - 1; i >= 0; i--) {
+      if (count != 0 && count % groupSize == 0) {
+        result = '$delimiter$result';
+      }
+      result = integerPart[i] + result;
+      count++;
+    }
+
+    return result;
+  }
+}
+
+class AdjustedTextResult {
+  final String text;
+  final int newSelection;
+
+  AdjustedTextResult({required this.text, required this.newSelection});
 }

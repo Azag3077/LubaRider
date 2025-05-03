@@ -12,6 +12,7 @@ class _Notifier extends AsyncNotifier<List<Notification>> {
   Future<List<Notification>> build() async {
     final data = List.generate(23, (index) {
       return Notification(
+        id: 'Id$index',
         title: 'Notification title $index',
         subtitle: 'You have cancelled an order at Burger Hut. '
             'We apologize for our inconvenience, '

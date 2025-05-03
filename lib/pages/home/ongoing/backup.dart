@@ -152,8 +152,10 @@ import 'package:flutter/material.dart';
 ///
 
 class CustomTabBarPage extends StatefulWidget {
+  const CustomTabBarPage({super.key});
+
   @override
-  _CustomTabBarPageState createState() => _CustomTabBarPageState();
+  State<CustomTabBarPage> createState() => _CustomTabBarPageState();
 }
 
 class _CustomTabBarPageState extends State<CustomTabBarPage> {
@@ -205,10 +207,10 @@ class _CustomTabBarPageState extends State<CustomTabBarPage> {
       appBar: AppBar(title: const Text('Custom Tab Bar')),
       body: Column(
         children: [
-          Container(
+          SizedBox(
             height: 60,
             child: tabWidths.isEmpty
-                ? SizedBox()
+                ? const SizedBox()
                 : AnimatedBuilder(
                     animation: _pageController,
                     builder: (context, child) {
@@ -244,7 +246,7 @@ class _CustomTabBarPageState extends State<CustomTabBarPage> {
                             child: Container(
                               width: lerpWidth,
                               decoration: BoxDecoration(
-                                color: Colors.red.withOpacity(0.2),
+                                color: Colors.red.withValues(alpha: 0.2),
                                 borderRadius: BorderRadius.circular(30),
                               ),
                             ),
@@ -253,14 +255,14 @@ class _CustomTabBarPageState extends State<CustomTabBarPage> {
                           Row(
                             children: List.generate(tabs.length, (index) {
                               double tabStart = tabOffsets[index];
-                              double tabEnd =
-                                  tabOffsets[index] + tabWidths[index];
+                              // double tabEnd =
+                              //     tabOffsets[index] + tabWidths[index];
 
                               return GestureDetector(
                                 onTap: () {
                                   _pageController.animateToPage(
                                     index,
-                                    duration: Duration(milliseconds: 300),
+                                    duration: const Duration(milliseconds: 300),
                                     curve: Curves.ease,
                                   );
                                 },
@@ -279,7 +281,7 @@ class _CustomTabBarPageState extends State<CustomTabBarPage> {
                                               .clamp(0.0, tabWidth);
 
                                       return LinearGradient(
-                                        colors: [
+                                        colors: const [
                                           Colors.green, // unselected color
                                           Colors.green,
                                           Colors.red, // selected color
@@ -300,7 +302,7 @@ class _CustomTabBarPageState extends State<CustomTabBarPage> {
                                     },
                                     child: Text(
                                       tabs[index],
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500,
                                         color: Colors
@@ -320,7 +322,7 @@ class _CustomTabBarPageState extends State<CustomTabBarPage> {
           Expanded(
             child: PageView(
               controller: _pageController,
-              children: [
+              children: const [
                 Center(child: Text('Short Page')),
                 Center(child: Text('Quite long Page')),
                 Center(child: Text('A very long one Page')),
@@ -590,6 +592,6 @@ class OngoingPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomTabBarPage();
+    return const CustomTabBarPage();
   }
 }

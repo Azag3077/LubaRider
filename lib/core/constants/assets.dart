@@ -8,8 +8,10 @@ class ImageAssetNames {
   static const bicycle = '$_root/bicycle.png';
   static const car = '$_root/car.png';
   static const bike = '$_root/bike.png';
+  static const bank = '$_root/bank.png';
   static const doubleCheckmark = '$_root/double-checkmark.png';
   static const profileReview = '$_root/profile-review.png';
+  static const contactSupport = '$_root/contact-support.png';
 
   static const homeCardEllipse = '$_root/home-card-ellipse.png';
   static const blankList = '$_root/blank-list.png';
@@ -18,6 +20,17 @@ class ImageAssetNames {
   static const locationCheck = '$_root/location-check.png';
   static const redBike = '$_root/red-bike.png';
   static const send = '$_root/send.png';
+  static const like = '$_root/like.png';
+
+  static const award1 = '$_root/award-1.png';
+  static const award2 = '$_root/award-2.png';
+  static const award3 = '$_root/award-3.png';
+  static const award4 = '$_root/award-4.png';
+  static const award5 = '$_root/award-5.png';
+  static const awardQuestion = '$_root/award-question.png';
+  static const star = '$_root/star.png';
+  static const accountCardEllipse = '$_root/account-card-ellipse.png';
+  static const deliveryBike = '$_root/delivery-bike.png';
 
   static const location = '$_root/location.png';
   static const fruit = '$_root/fruit.png';
@@ -47,6 +60,7 @@ class ImageAssetNames {
   static const globeLocation = '$_homeRoot/globe-location.png';
   static const ship = '$_homeRoot/ship.png';
   static const tracking = '$_homeRoot/tracking.png';
+
   // static const support = '$_homeRoot/support.png';
 
   static const _bnbRoot = '$_root/bottom_nav_bar';

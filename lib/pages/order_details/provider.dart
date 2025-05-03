@@ -136,19 +136,6 @@ class _Notifier extends AutoDisposeNotifier<_State> {
   Future<void> onConfirmLocation(BuildContext context) async {
     if (state.isError || state.isLoading) return;
 
-    final controller = await _controller.future;
-
-    final imageBytes = await controller.takeSnapshot();
-
     if (!context.mounted) return;
-
-    // pushNamed(
-    //   context,
-    //   AddAddressPage.routeName,
-    //   arguments: AddAddressPageArgs(
-    //     placemark: state.placemark!,
-    //     imageBytes: imageBytes,
-    //   ),
-    // );
   }
 }

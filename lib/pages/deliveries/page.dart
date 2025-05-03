@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../components/no_order_page.dart';
 import '../../components/place_holders.dart';
+import '../../components/popup_button.dart';
 import '../../core/constants/colors.dart';
 import '../../models/delivery.dart';
-import '../../components/no_order_page.dart';
 import 'components/list_tile.dart';
 import 'provider.dart';
 
@@ -18,7 +19,13 @@ class DeliveriesPage extends ConsumerWidget {
     return DefaultTabController(
       length: DeliveryStatus.values.length,
       child: Scaffold(
-        appBar: AppBar(title: const Text('Deliveries')),
+        appBar: AppBar(
+          title: const Text('Deliveries'),
+          actions: const <Widget>[
+            FilterPopupButton(),
+            SizedBox(width: 16.0),
+          ],
+        ),
         body: Column(
           children: <Widget>[
             TabBar(
@@ -59,10 +66,13 @@ class DeliveriesPage extends ConsumerWidget {
                       if (data.isEmpty) {
                         return NoOrderPage('No ${status.name} delivery yet');
                       }
+
+                      final pageKey = 'DeliveriesPageKey-${status.label}';
                       return RefreshIndicator(
                         onRefresh: () => ref.refresh(
                             deliveriesPageFutureProvider(status).future),
                         child: ListView.separated(
+                          key: PageStorageKey(pageKey),
                           itemCount: data.length,
                           separatorBuilder: (_, __) => const Divider(
                             color: AppColors.greyOutline,

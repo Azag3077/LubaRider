@@ -32,7 +32,11 @@ class DeliveryOrderDetailsPage extends ConsumerWidget {
     return Row(
       spacing: 4.0,
       children: <Widget>[
-        Icon(icon, size: 16.0),
+        Icon(
+          icon,
+          size: 16.0,
+          color: AppColors.hintColor,
+        ),
         Text(
           text,
           style: const TextStyle(
@@ -223,10 +227,69 @@ class DeliveryOrderDetailsPage extends ConsumerWidget {
 
             _buildIconText(Icons.calendar_month, 'Data'),
             const Text('February 12th 2025 07:30 PM'),
-            const SizedBox(height: 16.0),
+
+            const SizedBox(height: 48.0),
+            Row(
+              spacing: 8.0,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                if (delivery.status.isCompleted) ...[
+                  Image.asset(ImageAssetNames.like),
+                  const Text(
+                    'You rated this delivery',
+                    style: TextStyle(
+                      fontSize: 13.0,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.green500,
+                    ),
+                  ),
+                ] else
+                  const Text(
+                    'No rating',
+                    style: TextStyle(
+                      fontSize: 13.0,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.primary,
+                    ),
+                  )
+              ],
+            ),
+            const SizedBox(height: 24.0),
+            CustomPaint(
+              size: const Size(double.infinity, 0),
+              painter: DashedLinePainter(),
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+class DashedLinePainter extends CustomPainter {
+  final Color color;
+  final double dashWidth;
+  final double dashSpace;
+
+  DashedLinePainter({
+    this.color = const Color(0xFFB0B0B0),
+    this.dashWidth = 5.0,
+    this.dashSpace = 3.0,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color
+      ..strokeWidth = 2;
+
+    double startX = 0;
+    while (startX < size.width) {
+      canvas.drawLine(Offset(startX, 0), Offset(startX + dashWidth, 0), paint);
+      startX += dashWidth + dashSpace;
+    }
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }

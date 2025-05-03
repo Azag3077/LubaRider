@@ -83,6 +83,7 @@ class VehicleTypeSelector extends StatelessWidget {
         final showError = state.hasError && state.errorText != null;
 
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(left: 2.0, bottom: 6.0),

@@ -18,7 +18,8 @@ class NotificationListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () {},
+      key: ValueKey(notification.id),
+      onTap: onTap,
       title: Row(
         spacing: 8.0,
         children: <Widget>[

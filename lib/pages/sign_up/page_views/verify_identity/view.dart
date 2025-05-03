@@ -16,7 +16,6 @@ class VerifyIdentityPageView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(verificationDetailsPageViewProvider);
     final notifier = ref.read(verificationDetailsPageViewProvider.notifier);
 
     final textTheme = Theme.of(context).textTheme;

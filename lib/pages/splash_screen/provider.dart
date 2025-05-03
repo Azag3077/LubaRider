@@ -5,17 +5,11 @@ import '../../core/routers/router.dart';
 // import '../../models/user_profile.dart';
 import '../../network/dio_client.dart';
 import '../get_started/page.dart';
-// import '../../providers/providers.dart';
-// import '../dashboard/page.dart';
 
 final splashScreenProvider =
-    Provider.autoDispose<_Provider>((ref) => _Provider(ref));
+    Provider.autoDispose<_Provider>((_) => _Provider());
 
 class _Provider {
-  _Provider(this._ref);
-
-  final Ref _ref;
-
   void initState() => Future.delayed(2.seconds, _navigateToNextScreen);
 
   Future<void> _navigateToNextScreen() async {

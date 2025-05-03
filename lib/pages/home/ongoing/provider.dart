@@ -5,7 +5,7 @@ import '../../../models/order.dart';
 
 final uselessProvider = StateProvider<bool>((_) => false);
 
-  final ongoingOrderFutureProvider = FutureProvider<List<Order>>((ref) async {
+final ongoingOrderFutureProvider = FutureProvider<List<Order>>((ref) async {
   await 1.5.seconds.delayed;
   final useless = ref.watch(uselessProvider);
   return List.generate(useless ? 1 : 0, (index) {
